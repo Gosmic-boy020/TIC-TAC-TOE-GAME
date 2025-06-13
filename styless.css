@@ -1,0 +1,66 @@
+:root{
+  --game-pad-background-color:pink;
+  --pad-background-color:skyblue;
+  --text-color:black;
+}
+body{
+  background-color: var(--game-pad-background-color);
+}
+.game-Pad{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cell{
+  width: 100;
+  height: 80px;
+  border: 1px solid black;
+  background-color: var(--pad-background-color);
+  cursor: pointer;
+  transition: all 0.5s;
+  align-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size:40px;
+  font-weight: bolder;
+  color: var(--pad-background-color);
+  -webkit-text-stroke: 1.1px var(--text-color);
+}
+
+
+/* canvas.line-span{
+ position: absolute;
+ pointer-events: none;
+ width: 5px;
+ height: 240px;
+ background-color: black;
+ color: white;
+ top: 10px;
+ left: 100px;
+} */
+
+/* .X11:hover,.X12:hover,.X13:hover,.X21:hover,.X22:hover,.X23:hover,.X31:hover,.X32:hover,.X33:hover{
+  scale: 0.8;
+} */
+
+.add-list-red{
+  transition:all ease-in 0.5s;
+  background-color: var(--pad-background-color);
+  color: var(--game-pad-background-color)
+}
+.body-blue{
+  transition:all ease-in 0.5s;
+  background-color: var(--game-pad-background-color);
+  color: var(--pad-background-color);
+}
+
+.only-body-red{
+   transition:all ease-in 0.5s;
+  background-color: var(--pad-background-color);
+}
+.only-body-blue{
+  transition:all ease-in 0.5s;
+  background-color: var(--game-pad-background-color);
+}
