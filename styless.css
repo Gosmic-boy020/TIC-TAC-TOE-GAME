@@ -17,6 +17,7 @@ body{
 .all{
   height: 200px;
   width: 100%;
+  user-select: none;
 }
 .game-Pad{
   display: grid;
@@ -48,7 +49,7 @@ body{
   border-bottom:5px solid var(--text-color) ;
 }
 
-select,.select-options{
+.select-options{
   width: 150px;
   height: 50px;
   text-align: center;
@@ -58,7 +59,30 @@ select,.select-options{
   font-size: 15px;
   color: var(--primary-color);
   margin: 0 0 20px 0;
+  cursor: pointer;
+  pointer-events: visible;
   
+}
+.sel-opi{
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: auto;
+ border: 1px solid var(--text-color);
+opacity: 0;
+  column-gap: 15px;
+  width: 150px;
+  height: 100px;
+  background-color: var(--additional-color);
+}
+.player-mod{
+  text-align: center;
+  cursor: pointer;
+  padding-top: 10px;
+  border-top: 1px solid var(--text-color);
+  font-size: 18px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: none;
+
 }
 .mod-nam{
   padding-top:10%;
@@ -92,16 +116,7 @@ select,.select-options{
 
 
 
-/* .add-list-red{
-  transition:all ease-in 0.5s;
-  background-color: var(--pad-background-color);
-  color: var(--game-pad-background-color)
-}
-.body-blue{
-  transition:all ease-in 0.5s;
-  background-color: var(--game-pad-background-color);
-  color: var(--pad-background-color);
-} */
+
 
 .only-body-red{
    transition:all ease-in 0.5s;
@@ -110,4 +125,15 @@ select,.select-options{
 .only-body-blue{
   transition:all ease-in 0.5s;
   background-color: var(--pad-background-color);
+}
+
+.options-show{
+  opacity: 1;
+  
+}
+.play-mod-show{
+display: inline-block;
+}
+.display-none{
+  display:none;
 }
