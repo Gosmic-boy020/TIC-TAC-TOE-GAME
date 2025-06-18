@@ -18,6 +18,7 @@ let spareModName;
 let spareObj;
 
 export function cellsDisplay(modNam,obj){
+  moves=0;
   spareModName=modNam;
   spareObj=obj;
  console.log(obj.innerHTML);
