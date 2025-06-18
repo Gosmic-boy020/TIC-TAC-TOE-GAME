@@ -25,6 +25,8 @@ let tossVal2;
 
 
  export function toss(val1,val2){
+  messageToPage('select-options',val1)
+  moves=0;
   tosVal1=val1;
   tossVal2=val2;
   const html=`
