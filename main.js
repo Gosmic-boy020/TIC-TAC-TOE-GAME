@@ -3,25 +3,35 @@ import { toss } from "./computer.js";
 import { cellsDisplay } from "./twoPlayersMod.js";
 import { messageToPage } from "./publicFunctions.js";
 
-
-function selectOptionsDisplay(){
-  const html=`
-  <buttton  class="player-mod" data-mod="0" onclick="dis()">🙎‍♂️vs🙎</buttton>
-    <buttton class="player-mod" data-mod="1">🙎‍♂️ vs B🤖T</buttton>`;
-
-  document.querySelector('.sel-opi').innerHTML=html;
+import { findValue } from "./computer.js";
 
 //EventListener Here////////////////////////////////
-  document.querySelectorAll('.player-mod').forEach((item)=>{
+  document.querySelectorAll('.play-btns').forEach((item)=>{
     item.addEventListener('click',()=>{
-    
-     const ele=document.querySelector('.sel-opi');
-      ele.classList.remove("options-show");
-  
-      document.querySelectorAll('.player-mod').forEach((item)=>{
-        item.classList.remove("play-mod-show");
-      });
+    const html=`
       
+        <div class="select-options"></div>
+          <div class="opiti "></div>        
+          
+            <div class="game-related">
+              <div class="game-Pad"></div>
+          
+                <p class="msg"></p>
+                <p class="msg2"></p>
+
+                  <div class="toss-area"></div>
+                
+            </div>
+
+
+       `
+      messageToPage('all-container',html);
+      
+      const ele=findValue('all-container');
+      
+
+      ele.classList.remove('all-container');
+      ele.classList.add('bod');
       const modvalue=item.dataset.mod;
       const modNam=item.innerHTML;
       if(modvalue=='0'){
@@ -30,24 +40,16 @@ function selectOptionsDisplay(){
         toss(`<p class='mod-nam'>${modNam} Mode</p>`,item);
 
       }
+      //console.log(item.dataset.mod)
 
     });
     
   });
-document.querySelector('.select-options').addEventListener('click',()=>{
-  messageToPage('game-pad','');
-      messageToPage('msg','');
-      messageToPage('toss-area','')
-  const ele=document.querySelector('.sel-opi');
-  ele.classList.toggle("options-show");
-  
-  document.querySelectorAll('.player-mod').forEach((item)=>{
-    item.classList.toggle("play-mod-show");
-  });
-});
 
 
-}
+
+
+
 
 
 
@@ -55,4 +57,3 @@ document.querySelector('.select-options').addEventListener('click',()=>{
 
 
 ////ALL FUNCTION FISRT CALL HERE///
-selectOptionsDisplay();
