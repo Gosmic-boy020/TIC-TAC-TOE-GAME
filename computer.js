@@ -23,6 +23,7 @@ let finalComMove='';
 let tosVal1;
 let tossVal2;
 
+const x=findValue("sound");
 
  export function toss(val1,val2){
   messageToPage('select-options',val1)
@@ -167,7 +168,7 @@ console.log('game started');
 
 function personMove(cellValue,obj){
   console.log('person moved',cellValue,obj);
-  
+  x.play();
   sendSwitchingKeyResponse(cellValue,disPerson1);
   moves+=1;
   messageToPage('msg',`NOW ${per2} : ${computer} `);
@@ -185,6 +186,9 @@ function personMove(cellValue,obj){
 function analyseGame(hisCellValue,obj1){
 
   if(gameEnd==false){
+
+    const campi=findValue('select-options');
+    campi.classList.add("bot-thinking");
 
  messageToPage('select-options','<p class="mod-nam">BOT THINKING...</p>');
  
@@ -443,8 +447,11 @@ function thinking(){
       themeChanger(disPerson2);
       console.log('computer moved',hisCellValue,obj1,camMove);
       sendSwitchingKeyResponse(finalComMove,disPerson2);
+      x.play();
       moves+=1;
       messageToPage('msg',`NOW ${per1} : ${person} `);
+      campi.classList.remove("bot-thinking");
+      
       checkGameStatus(switchingKey)
       switchingKey=person;
       
@@ -461,8 +468,8 @@ function thinking(){
  
 
 
-function findValue(cell){
-  return `${document.querySelector(`.${cell}`).innerHTML}`;
+export function findValue(cls){
+  return document.querySelector(`.${cls}`);
 }
 
 
