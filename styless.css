@@ -10,16 +10,18 @@
     --danger-color:#ff0000;
     --signal-yellow:#ffdd00b0;
     --white-milk:#ffffff;
+
 }
-body{
-  background-color: var(--game-pad-background-color);
-}
+
+
 .all{
   height: 200px;
   width: 100%;
   user-select: none;
+  
 }
 .game-Pad{
+  margin-top: 30%;
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: center;
@@ -58,22 +60,13 @@ body{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15px;
   color: var(--primary-color);
-  margin: 0 0 20px 0;
   cursor: pointer;
   pointer-events: visible;
-  
+  transition: all 0.5s;
+  position: relative;
+  top: 20px;
 }
-.sel-opi{
-  margin-top: 0;
-  display: grid;
-  grid-template-columns: auto;
- border: 1px solid var(--text-color);
-opacity: 0;
-  column-gap: 15px;
-  width: 150px;
-  height: 100px;
-  background-color: var(--additional-color);
-}
+
 .player-mod{
   text-align: center;
   cursor: pointer;
@@ -114,26 +107,34 @@ opacity: 0;
   -webkit-text-stroke:3px var(--text-color);
 }
 
+.display-none{
+  display: none;
+}
 
 
 
 
 .only-body-red{
    transition:all ease-in 0.5s;
+   width: 400px;
+  height: 100%;
   background-color: var(--game-pad-background-color);
+
 }
 .only-body-blue{
   transition:all ease-in 0.5s;
+  width: 400px;
+  height: 100%;
   background-color: var(--pad-background-color);
 }
 
-.options-show{
-  opacity: 1;
-  
-}
-.play-mod-show{
-display: inline-block;
-}
-.display-none{
-  display:none;
+
+
+
+.bot-thinking{
+  background-color: var(--game-pad-background-color);
+
+
+  transform:rotate(360deg);
+  box-shadow: 0px 50px 90px var(--primary-color);
 }
