@@ -4,36 +4,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="styless.css">
+  <link rel="stylesheet" href="game-wallpepaer.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-
+  
 
 </head>
 
-<body class="bod">
-  <div class="all">
+<body >
+<center>
 
-  
-  <center>
-    <!-- <button onclick="location.reload()">Back</button> -->
-    <div class="select-options"><p class="mod-nam">SelectOptions:🔽</p></div>
-    <div class="sel-opi"></div>
+   <div class="all-container bod">
+    <h2 class="game-name">TIC TAC TOE</h2>
+    <div class="img-container">
+      <div class="cell-container">
+
+     
+            <div class="X11 cell" data-cellname='X11'></div>    <div class="X12 cell" data-cellname='X12'>O</div>   <div class="X13 cell" data-cellname='X13'></div>
+
+          <div class="X21 cell" data-cellname='X21'></div>   <div class="X22 cell" data-cellname='X22'>X</div>   <div class="X23 cell" data-cellname='X23'>O</div>
+
+          <div class="X31 cell" data-cellname='X31'></div>    <div class="X32 cell" data-cellname='X32'></div>   <div class="X33 cell" data-cellname='X33'></div>
+           </div>
+    </div>
+
+    <div class="range-container">
+      
+        <div class="btn-container">
+          <h2 class="mode">MODES</h2>
+
+          <button class="play-btns btn1" data-mod="0">🙎vs🙎</button>
+          <button class="play-btns btn2" data-mod="1">🙎 vs B🤖T</button>
+
+        </div>
+
+    </div>
+
     
- <div class="game-related">
- <div class="game-Pad"></div>
-  
- <p class="msg"></p>
- <p class="msg2"></p>
-  <div class="toss-area"></div>
-  </div>
-</center>
 
-</div>
+  </div>
+
+
+
+</center>
 
 
 
   <script type="module"  src="main.js"></script>
 
-
+  <audio class="sound">
+    <source src="pop.mp3" type="audio/mpeg">
+  </audio>
   
 </body>
 
