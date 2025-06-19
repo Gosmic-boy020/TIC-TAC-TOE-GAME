@@ -1,6 +1,6 @@
 import { messageToPage,sendSwitchingKeyResponse,themeChanger,arr1 } from "./publicFunctions.js";
 
-
+import { findValue } from "./computer.js";
 
 let per1='';
 let per2='';
@@ -16,8 +16,9 @@ const spanHtml=`
 `;
 let spareModName;
 let spareObj;
-
+const sound=findValue("sound");
 export function cellsDisplay(modNam,obj){
+  themeChanger(disPerson2)
   moves=0;
   spareModName=modNam;
   spareObj=obj;
@@ -122,6 +123,7 @@ function playGame(cellval,gameObj){
           switchingKey=disPerson1;
           }
           if(switchingKey==disPerson1 && gameEnd==false){
+            sound.play()
             sendSwitchingKeyResponse(cellval,disPerson1);
             checkGameStatus(switchingKey); 
             themeChanger(disPerson1);  
@@ -131,6 +133,7 @@ function playGame(cellval,gameObj){
             
           }else{
             if(switchingKey==disPerson2 && gameEnd==false){
+              sound.play();
               sendSwitchingKeyResponse(cellval,disPerson2);
               checkGameStatus(switchingKey);
               themeChanger(disPerson2);
@@ -249,7 +252,7 @@ export function checkGameStatus(recentMove){
     
     messageToPage('msg',`<button class='replay'>${recentMove} SO RETRY</button><br>`)
   }else if(recentMove==disPerson1 || recentMove==disPerson2){
-   recentMove==disPerson1?themeChanger(disPerson1):themeChanger(disPerson2);
+   recentMove==disPerson1?themeChanger(disPerson2):themeChanger(disPerson1);
     document.querySelector('.msg').innerHTML=`${recentMove==disPerson1?`${per1}`:`${per2}`} '${recentMove}' WINNER 👑${moves}<p><button class='replay'>REPLAY</button></p>`;
     
   }
@@ -268,7 +271,7 @@ export function checkGameStatus(recentMove){
      })
   
       moves=0;
-   
+     switchingKey='X';
 }
 
 
