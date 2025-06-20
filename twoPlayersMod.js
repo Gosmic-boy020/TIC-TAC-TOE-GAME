@@ -1,11 +1,13 @@
 import { messageToPage,sendSwitchingKeyResponse,themeChanger,arr1 } from "./publicFunctions.js";
 
-import { findValue } from "./computer.js";
+import { findValue,addList,removeList } from "./computer.js";
 
 let per1='';
 let per2='';
 const disPerson1=`<p class="logo-X">X</p>`;
 const disPerson2=`<p class="logo-O">O</p>`;
+
+
 
 let switchingKey=``;
 let moves=0;
@@ -32,8 +34,10 @@ export function cellsDisplay(modNam,obj){
     presentGameMode=modValue1;
   }
 
-messageToPage('select-options',modNam);
-switchingKey==''?messageToPage('msg',`NOW ${per1} : X`):'';
+messageToPage('select-options',disPerson1);
+
+
+
 
 const html=`
     <div class="X11 cell" data-cellname='X11'></div>    <div class="X12 cell" data-cellname='X12'></div>   <div class="X13 cell" data-cellname='X13'></div>
@@ -45,8 +49,13 @@ const html=`
 document.querySelector('.game-Pad').innerHTML=html;
 console.log('game started');
 
+messageToPage('player-2',disPerson2);
 
 
+const hig1=findValue('select-options');
+const hig2=findValue('player-2');
+
+ hig1.classList.add("highlight-1");
 
   document.querySelectorAll('.cell').forEach((item)=>{
     item.addEventListener('click',()=>{
@@ -76,11 +85,14 @@ console.log('game started');
           
           
           if(switchingKey==disPerson1 && gameEnd==false ){
-
-            messageToPage('msg',`NOW ${per1} : ${switchingKey} `);
+             hig2.classList.remove("highlight-2");
+            messageToPage('select-options',`${disPerson1}`);
+             hig1.classList.add("highlight-1");
           }else{
             if(switchingKey==disPerson2 && gameEnd==false){
-              messageToPage('msg',`NOW ${per2} : ${switchingKey}`);
+               hig1.classList.remove("highlight-1");
+              messageToPage('player-2',`${disPerson2}`);
+               hig2.classList.add("highlight-2");
             }
           }
           
@@ -124,7 +136,10 @@ function playGame(cellval,gameObj){
           }
           if(switchingKey==disPerson1 && gameEnd==false){
             sound.play()
-            sendSwitchingKeyResponse(cellval,disPerson1);
+            sendSwitchingKeyResponse(cellval,switchingKey);
+
+            
+
             checkGameStatus(switchingKey); 
             themeChanger(disPerson1);  
             switchingKey=disPerson2;
@@ -134,7 +149,7 @@ function playGame(cellval,gameObj){
           }else{
             if(switchingKey==disPerson2 && gameEnd==false){
               sound.play();
-              sendSwitchingKeyResponse(cellval,disPerson2);
+              sendSwitchingKeyResponse(cellval,switchingKey);
               checkGameStatus(switchingKey);
               themeChanger(disPerson2);
               switchingKey=disPerson1;
@@ -248,12 +263,16 @@ export function checkGameStatus(recentMove){
 
  function gameOver(recentMove){
   gameEnd=true;
+  ;
+  setTimeout(()=>{
+    addList('msg','msg-cover');
+  
   if(recentMove=='MATCH TIE'){
-    
+  
     messageToPage('msg',`<button class='replay'>${recentMove} SO RETRY</button><br>`)
   }else if(recentMove==disPerson1 || recentMove==disPerson2){
    recentMove==disPerson1?themeChanger(disPerson2):themeChanger(disPerson1);
-    document.querySelector('.msg').innerHTML=`${recentMove==disPerson1?`${per1}`:`${per2}`} '${recentMove}' WINNER 👑${moves}<p><button class='replay'>REPLAY</button></p>`;
+    document.querySelector('.msg').innerHTML=`${recentMove==disPerson1?`${per1}`:`${per2}`} ${recentMove} WINNER 👑<p><button class='replay'>REPLAY</button></p>`;
     
   }
   if(recentMove==undefined){
@@ -262,16 +281,21 @@ export function checkGameStatus(recentMove){
   }
   console.log('GAME OVER......');
   document.querySelectorAll('.replay').forEach((item)=>{
+    addList('replay','play-btns');
       item.addEventListener('click',()=>{
+        removeList('msg','msg-cover');
+        removeList('player-2','highlight-2')
         messageToPage('game-pad','');
         messageToPage('msg','');
         gameEnd=false;
         cellsDisplay(spareModName,spareObj);
+        switchingKey=disPerson1
       })
      })
   
       moves=0;
-     switchingKey='X';
+
+         },1000);
 }
 
 
