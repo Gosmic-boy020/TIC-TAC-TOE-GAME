@@ -9,10 +9,7 @@ import { findValue } from "./computer.js";
   document.querySelectorAll('.play-btns').forEach((item)=>{
     item.addEventListener('click',()=>{
     const html=`
-      
         <div class="select-options"></div>
-          <div class="opiti "></div>        
-          
             <div class="game-related">
               <div class="game-Pad"></div>
           
@@ -22,7 +19,7 @@ import { findValue } from "./computer.js";
                   <div class="toss-area"></div>
                 
             </div>
-
+          <div class="select-options player-2"></div>
 
        `
       messageToPage('all-container',html);
@@ -31,7 +28,7 @@ import { findValue } from "./computer.js";
       
 
       ele.classList.remove('all-container');
-      ele.classList.add('bod');
+      ele.classList.add('tow-all-container');
       const modvalue=item.dataset.mod;
       const modNam=item.innerHTML;
       if(modvalue=='0'){
