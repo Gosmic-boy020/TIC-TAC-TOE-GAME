@@ -26,18 +26,26 @@ let tossVal2;
 const x=findValue("sound");
 
  export function toss(val1,val2){
-  messageToPage('select-options',val1)
+  
+  addList('select-options','display-none');
+  removeList('display-none','select-options');
+  addList('player-2','display-none');
+  removeList('display-none','player-2');
   moves=0;
   tosVal1=val1;
   tossVal2=val2;
   const html=`
-  <h2>Try to Win the Toss to Make First Move</h2>
-  <h2>CHOOSE ONE</h2>
+  <h2 class="formal-text">WIN TOSS TO PUT FIRST MOVE</h2>
+  <h2 class="formal-text">CHOOSE ONE</h2>
  <button class="sty-btn head" data-hed="0">HEADS</button>
  <button class="sty-btn tail" data-tai="1">TAILS</button>
   `;
   document.querySelector('.toss-area').innerHTML=html;
+
+    addList('toss-area','btn-container');
+
   document.querySelectorAll('.sty-btn').forEach((item)=>{
+    item.classList.add('play-btns')
     item.addEventListener('click',()=>{
       HTrandom(val1,val2,item);
     });
@@ -50,22 +58,21 @@ const x=findValue("sound");
  if(ranVal>=0 && ranVal<=1/2){
   toss_winner='X';
   switchingKey=person;
-  messageToPage('select-options','<p class="mod-nam">You Won Toss</p>')
-  messageToPage('toss-area','You have to place first--->>');
+
+  messageToPage('toss-area','<p class="mod-nam">You Won Toss</p>');
 
   setTimeout(()=>{
     themeChanger(disPerson2);
     botCellsDisplay(val1,val2);
-    messageToPage('msg',`NOW ${per1} : ${person} `);
+
   },3000)
  }else if(ranVal>=1/2 && ranVal<=1){
   toss_winner='O';
-  messageToPage('select-options','<p class="mod-nam">Bot Won Toss</p>');
-  messageToPage('toss-area','Bot have to place first----<')
+  messageToPage('toss-area','<p class="mod-nam">Bot Won Toss</p>')
   setTimeout(()=>{
     botCellsDisplay(val1,val2);
     themeChanger(disPerson1)
-    messageToPage('msg',`NOW ${per2} : ${computer} `);
+
     analyseGame();
   },3000)
  }
@@ -75,6 +82,13 @@ const x=findValue("sound");
 
 
  function botCellsDisplay(modNam,obj){
+  removeList('toss-area','btn-container');
+
+  addList('display-none','select-options');
+  removeList('select-options','display-none');
+
+  addList('display-none','player-2');
+  removeList('player-2','display-none');
 
  console.log(obj.innerHTML);
   const modValue1=obj.dataset.mod;
@@ -89,7 +103,7 @@ const x=findValue("sound");
 messageToPage('select-options',modNam);
 messageToPage('toss-area','');
 
-messageToPage('msg',`NOW ${toss_winner=='X'?per1:per2}:${toss_winner}`)
+
 const html=`
     <div class="X11 cell" data-cellname='X11'></div>    <div class="X12 cell" data-cellname='X12'></div>   <div class="X13 cell" data-cellname='X13'></div>
 
@@ -166,12 +180,15 @@ console.log('game started');
    
 }
 
+
+
+
 function personMove(cellValue,obj){
   console.log('person moved',cellValue,obj);
   x.play();
   sendSwitchingKeyResponse(cellValue,disPerson1);
   moves+=1;
-  messageToPage('msg',`NOW ${per2} : ${computer} `);
+
   checkGameStatus(switchingKey);
   
   switchingKey=computer;
@@ -449,7 +466,7 @@ function thinking(){
       sendSwitchingKeyResponse(finalComMove,disPerson2);
       x.play();
       moves+=1;
-      messageToPage('msg',`NOW ${per1} : ${person} `);
+
       campi.classList.remove("bot-thinking");
       
       checkGameStatus(switchingKey)
@@ -566,15 +583,21 @@ export function checkGameStatus(recentMove){
 }
 
 function gameOver(recentMove){
-  gameEnd=true;
- 
+    gameEnd=true;
+  setTimeout(()=>{
+
+
+
+  addList('msg','msg-cover');
   messageToPage('msg','');
   if(recentMove=='MATCH TIE'){
     
-    messageToPage('msg',`<button class='replay'>${recentMove} SO RETRY</button><br>`)
+    messageToPage('msg',`<button class='replay'>${recentMove} SO RETRY</button><br>`);
+    addList('replay','play-btns');
   }else if(recentMove=='X' || recentMove=='O'){
     recentMove==computer?themeChanger(disPerson1):themeChanger(disPerson2);
     document.querySelector('.msg').innerHTML=`${recentMove=='X'?`${per1}`:`${per2}`} '${recentMove}' WINNER 👑${moves}<p><button class='replay'>REPLAY</button></p>`;
+    
     
   }
   if(recentMove==undefined){
@@ -583,7 +606,9 @@ function gameOver(recentMove){
   }
   console.log('GAME OVER......')
    document.querySelectorAll('.replay').forEach((item)=>{
+    addList('replay','play-btns');
     item.addEventListener('click',()=>{
+      removeList('msg','msg-cover');
       messageToPage('game-pad','');
       messageToPage('msg','');
       gameEnd=false;
@@ -595,4 +620,16 @@ function gameOver(recentMove){
     camMove='';
     camWinMove='';
     finalComMove='';
+
+
+      },1000);
+}
+
+
+export function addList(cls,styleCls){
+  document.querySelector(`.${cls}`).classList.add(`${styleCls}`);
+}
+
+export function removeList(cls,styleCls){
+document.querySelector(`.${cls}`).classList.remove(`${styleCls}`);
 }
