@@ -24,15 +24,17 @@
 
   display: grid;
   grid-template-columns: auto auto auto;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
   text-align: center;
   
 }
 
 .cell{
-  width: 100;
-  height: 80px;
+  min-width: 100;
+  width: 100%;
+  min-height: 80px;
+  height: 100%;
   cursor: pointer;
   transition: all ease-in 0.5s;
   align-content: center;
@@ -42,6 +44,7 @@
   color: var(--pad-background-color);
   -webkit-text-stroke: 1.1px var(--text-color);
 }
+
 
 .X11,.X21,.X31,.X12,.X22,.X32{
   border-right:5px solid var(--text-color) ;
@@ -77,8 +80,17 @@
 
 }
 .mod-nam{
- 
   font-size: 40px;
+}
+
+.mode-in-game{
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  font-size: 15px;
+  color: var(--text-color);
+  background-color: var(--additional-color);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .logo-X{
@@ -109,7 +121,6 @@
 
 .toss-area-styles{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   
   width: 250px;
   height: 280px;
   padding: 30px;
@@ -120,7 +131,7 @@
   background-color: var(--aditional-color-black);
   border-radius: 50px;
   box-shadow: 0px 0px 100px var(--text-color-black);
-  
+  color: var(--white-milk);
 }
 
 .msg-cover{
