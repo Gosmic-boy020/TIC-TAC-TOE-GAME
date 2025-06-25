@@ -59,21 +59,21 @@ export function saveStorage(arrName,itemName){
 export function crossLine(index){
   const crossLine=findValue('cross-line');
   const positions=[{
-    top:38,bottom:50,left:0,right:0,rotate:0,width:240 //row-1
+    top:50,bottom:0,left:0,right:0,rotate:0,width:240 //row-1
   },{
-    top:59,bottom:50,left:0,right:0,rotate:0,width:240 //row-2
+    top:138,bottom:0,left:0,right:0,rotate:0,width:240 //row-2
   },{
-    top:59,bottom:40,left:0,right:0,rotate:0,width:240 //row-3
+    top:220,bottom:0,left:0,right:0,rotate:0,width:240 //row-3
   },{
-    top:-10,bottom:50,left:-9,right:0,rotate:90,width:240 //col-1
+    top:140,bottom:0,left:-100,right:0,rotate:90,width:240 //col-1
   },{
-    top:50,bottom:50,left:0,right:0,rotate:90,width:240 //col-2
+    top:140,bottom:0,left:0,right:0,rotate:90,width:240 //col-2
   },{
-    top:10,bottom:50,left:20,right:80,rotate:90,width:240 //col-3
+    top:140,bottom:0,left:100,right:0,rotate:90,width:240 //col-3
   },{
-    top:50,bottom:50,left:-0,right:0,rotate:220,width:350 //dig-1
+    top:140,bottom:0,left:0,right:0,rotate:220,width:300 //dig-1
   },{
-    top:50,bottom:50,left:-0,right:0,rotate:-220,width:350 //dig-2
+    top:140,bottom:0,left:0,right:0,rotate:-220,width:350 //dig-2
   }];
   
 
@@ -82,10 +82,10 @@ export function crossLine(index){
   findValue('sound').pause();
 
   crossLine.style.display='inline-block';
-  crossLine.style.top=`${pos.top}vh`;
-  crossLine.style.bottom=`${pos.bottom}vh`
-  crossLine.style.left=`${pos.left}vh`;
-  crossLine.style.right=`${pos.right}vh`;
+  crossLine.style.top=`${pos.top}px`;
+  crossLine.style.bottom=`${pos.bottom}px`
+  crossLine.style.left=`${pos.left}px`;
+  crossLine.style.right=`${pos.right}px`;
   crossLine.style.rotate=`${pos.rotate}deg`;
   crossLine.style.width=`0px`;
   setTimeout(()=>{
