@@ -1,7 +1,7 @@
 import { messageToPage,sendSwitchingKeyResponse,themeChanger,arr1,findValue,addList,removeList,crossLine } from "./publicFunctions.js";
 
 
-let toss_winner='';
+
 const person="X";
 const computer="O";
 const computerName='BOT'
@@ -16,90 +16,41 @@ let switchingKey=``;
 let moves=0;
 let gameEnd=false;
 
-let randomMove='';
+
 let camMove='';
 let camWinMove=''
 let strategicMove='';
 let finalComMove='';
 let cornerMove='';
-let senter='';
-let tosVal1;
-let tossVal2;
+
+
 let difiLVL;
 let midmoves=0;
+
 const x=findValue("sound");
+let firstmove=''
 
-
-
- export function toss(val1,val2,lvlMod){
-  
-  addList('select-options','display-none');
-  removeList('display-none','select-options');
-  addList('player-2','display-none');
-  removeList('display-none','player-2');
-  
-  tosVal1=val1;
-  tossVal2=val2;
-  difiLVL=lvlMod;
-  const html=`
-  <h2 class="formal-text">WIN TOSS TO PUT FIRST MOVE</h2>
-  <h2 class="formal-text">CHOOSE ONE</h2>
- <button class="sty-btn head" data-hed="0">HEADS</button>
- <button class="sty-btn tail" data-tai="1">TAILS</button>
-  `;
-  document.querySelector('.toss-area').innerHTML=html;
-
-    addList('toss-area','toss-area-styles');
-
-  document.querySelectorAll('.sty-btn').forEach((item)=>{
-    item.classList.add('play-btns')
-    item.addEventListener('click',()=>{
-      HTrandom(val1,val2,item);
-    });
-    
-  })
- }
- function HTrandom(val1,val2,obj){
- const ranVal =Math.random();
- if(ranVal>=0 && ranVal<=1/2){
-  toss_winner='X';
-  switchingKey=disPerson1;
-
-  messageToPage('toss-area','<p class="mod-nam">You Won Toss</p>');
-
-  setTimeout(()=>{
+export function firstMove(modvalue,difi,lvlMod){
+  difiLVL=difi;
+  messageToPage('mode-in-game',lvlMod);
+  if(switchingKey==''){
+    switchingKey=disPerson1;
+    firstmove='person';
     themeChanger(disPerson2);
-    botCellsDisplay(val1,val2);
+    botCellsDisplay(modvalue);
     addList('player-2','highlight-1');
-  },3000)
- }else if(ranVal>=1/2 && ranVal<=1){
-  toss_winner='O';
-  messageToPage('toss-area','<p class="mod-nam">Bot Won Toss</p>')
-  setTimeout(()=>{
-    botCellsDisplay(val1,val2);
-    themeChanger(disPerson1)
-    analyseGame();
-  },3000)
- }
+  }
+}
 
-  
- }
- function botCellsDisplay(modNam,obj){
-  removeList('toss-area','toss-area-styles');
 
-  addList('display-none','select-options');
-  removeList('select-options','display-none');
+  function botCellsDisplay(modValue1){
+ 
+  camMove='';
+  camWinMove='';
+  strategicMove='';
+  moves=0;
 
-  addList('display-none','player-2');
-  removeList('player-2','display-none');
-
-camMove='';
-camWinMove='';
-strategicMove='';
-moves=0;
-
- console.log(obj.innerHTML);
-  const modValue1=obj.dataset.mod;
+ 
   let presentGameMode='';
 
   if(modValue1=='1'){
@@ -111,9 +62,6 @@ moves=0;
 messageToPage('select-options',`${computerName}`);
 
 messageToPage('player-2',`${disPerson1}`)
-
-messageToPage('toss-area','');
-
 
 const html=`
     <div class="X11 cell" data-cellname='X11'></div>    <div class="X12 cell" data-cellname='X12'></div>   <div class="X13 cell" data-cellname='X13'></div>
@@ -150,8 +98,18 @@ console.log('game started');
             console.log(moves);
 
             ////play game method////
-            if(gameEnd==false && presentGameMode=='1'){
-              playGame(cellValue,item);
+            if(gameEnd==false && presentGameMode=='1' && switchingKey==disPerson1){
+
+              const hisCellValue=item.dataset.cellname;
+              removeList('player-2','highlight-1');
+              console.log('person moved',hisCellValue,item);
+              x.play();
+              item.innerHTML=disPerson1;
+              themeChanger(disPerson1);
+              moves+=1
+              checkGameStatus(switchingKey);
+              switchingKey=disPerson2;
+              analyseGame(hisCellValue,item);
             }
                   
 
@@ -177,32 +135,14 @@ console.log('game started');
 
    
 }
- function playGame(val1,obj){
 
-  if(switchingKey==disPerson1 && gameEnd==false){
-    personMove(val1,obj);
-    themeChanger(disPerson1);
-    analyseGame(val1,obj);
-  }
-   
-}
-function personMove(cellValue,obj){
-  removeList('player-2','highlight-1');
-  console.log('person moved',cellValue,obj);
-  x.play();
-  sendSwitchingKeyResponse(cellValue,disPerson1);
-  moves+=1;
 
-  checkGameStatus(switchingKey);
-  switchingKey=disPerson2;
-  
-}
+
 function analyseGame(hisCellValue,obj1){
 
   if(gameEnd==false){
 
-    const campi=findValue('select-options');
-    campi.classList.add("bot-thinking");
+    findValue('select-options').classList.add("bot-thinking");
 
  messageToPage('select-options','Thinking');
  console.log('bot Thinking..')
@@ -251,17 +191,17 @@ function analyseGame(hisCellValue,obj1){
 
   
 
- if(toss_winner==person || toss_winner==computer){
-console.log('BOT TRYING TO Win>>');
-  
-if(difiLVL.value=='1'){
-  Easy();
-  
- }else if(difiLVL.value=='2'){
-  medium();
- }else if(difiLVL.value=='3'){
-  dificult();
- }
+ if(switchingKey=disPerson2){
+  console.log('BOT TRYING TO Win>>');
+    
+  if(difiLVL.value=='1'){
+    Easy();
+    
+  }else if(difiLVL.value=='2'){
+    medium();
+  }else if(difiLVL.value=='3'){
+    dificult();
+  }
   
 };
 
@@ -496,26 +436,13 @@ if((row11==disPerson2 && row12==disPerson2 && row13=='')){
   }
 
 
-    
-
-if( row11=='' ||row13=='' || row31==''|| row33==''){
-console.log('Corner value assigning in think For Win...');
-  if(row11==''){
-  cornerMove='X11';
-}else if(row13==''){
-  cornerMove='X13';
-}else if(row31==''){
-  cornerMove='X31'
-}else if(row33==''){
-  cornerMove='X33'
-}
-
+    cornerValue();
+  
 }
 
 
   
 
-}
 
 function thinkForStratagicMove(){
   strategicMove='';
@@ -548,6 +475,19 @@ function thinkForStratagicMove(){
     }
 }
 
+function cornerValue(){
+    let arrCro=["X11","X13","X31","X33","X12","X21","X23","X32"];
+    let ranCorner=arrCro[Math.floor(Math.random()*arrCro.length)];
+    let cornValue=document.querySelector(`.${ranCorner}`).innerHTML;
+    if(ranCorner!=hisCellValue && cornValue==''){
+      cornerMove=ranCorner;
+    }else if(ranCorner==hisCellValue || cornValue!=''){
+      cornerValue();
+    }else if(cornValue!=''){
+      cornerMove='';
+    }
+  }
+
 
 
   setTimeout(()=>{
@@ -557,19 +497,20 @@ function thinkForStratagicMove(){
       x.play();
       moves+=1;
 
-      campi.classList.remove("bot-thinking");
+      findValue('select-options').classList.remove("bot-thinking");
       
       checkGameStatus(switchingKey)
       switchingKey=disPerson1;
       addList('player-2','highlight-1');
       messageToPage('select-options',`${computerName}`);
+
 },2000);
 
   }
 
-
-   
 }
+ 
+
 ///CHECKING GAME STATUS AND FINALISE WINNER/////
 export function checkGameStatus(recentMove){
   let index=0;
@@ -652,7 +593,7 @@ export function checkGameStatus(recentMove){
                                 }else{
                                   
                                   if(moves>=9){
-                                    gameOver('MATCH TIE','');
+                                    gameOver('MATCH TIE','tie');
                                   }
                                 }
                               }
@@ -678,7 +619,7 @@ export function checkGameStatus(recentMove){
 }
 function gameOver(recentMove,index){
     gameEnd=true;
-   index!=''?crossLine(index):'';
+   index=='tie'?console.log('tie'):crossLine(index);
 
   setTimeout(()=>{
 
@@ -711,10 +652,28 @@ function gameOver(recentMove,index){
       messageToPage('select-options','');
       messageToPage('player-2','');
       removeList('player-2','highlight-1');
+      if(firstmove=='person'){
+        gameEnd=false;
+        themeChanger(disPerson1);
+       firstmove='computer';
+       switchingKey='';
+       switchingKey=disPerson2;
+       botCellsDisplay('1');
+        analyseGame();
+        addList('select-options','bot-thinking');
+      }else if(firstmove=='computer'){
+        gameEnd=false;
+        firstmove='person';
+        switchingKey='';
+        switchingKey=disPerson1;
+        botCellsDisplay('1');
+        addList('player-2','highlight-1');
+      }
       
-      gameEnd=false;
-      toss(tosVal1,tossVal2,difiLVL);
-    })
+      
+      
+    });
+
    })
 
     
