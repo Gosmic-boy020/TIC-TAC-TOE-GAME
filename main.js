@@ -1,4 +1,4 @@
-import { toss } from "./computer.js";
+import { firstMove } from "./computer.js";
 
 import { cellsDisplay } from "./twoPlayersMod.js";
 import { addList, messageToPage, removeList } from "./publicFunctions.js";
@@ -10,16 +10,17 @@ const lvl=findValue('dificulti');
   document.querySelectorAll('.play-btns').forEach((item)=>{
     item.addEventListener('click',()=>{
     const html=`
-    <div class="cross-line"></div>
+    
     <button class='back-btn' onclick='window.location.reload()' title='back'>🔙</button>
+    <div class='mode-in-game'></div>
         <div class="select-options"></div>
             <div class="game-related">
+            <div class="cross-line"></div>
               <div class="game-Pad"></div>
           
                 <p class="msg"></p>
                 <p class="msg2"></p>
 
-                  <div class="toss-area"></div>
                 
             </div>
           <div class="select-options player-2"></div>
@@ -37,8 +38,7 @@ const lvl=findValue('dificulti');
       if(modvalue=='0'){
        cellsDisplay(`<p class='mod-nam'>${modNam} Mode</p>`,item)
       }else if(modvalue=='1'){
-        toss(`<p class='mod-nam'>${modNam} Mode</p>`,item,lvl);
-
+        firstMove(modvalue,lvl,lvlMod)
       }
       //console.log(item.dataset.mod)
 
