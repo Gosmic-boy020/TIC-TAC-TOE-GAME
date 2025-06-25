@@ -14,6 +14,7 @@
 body{
   background-color: var(--primary-color-black);
   user-select: none;
+
 }
 *{
 
@@ -33,13 +34,16 @@ body{
 }
 
 .tow-all-container{
+
   width: 100%;
   height: 100%;
  display: grid;
  grid-template-columns: 100%;
  justify-items: center;
  align-items: center;
- color: var(--background-color-black);
+ color: var(--text-color-black);
+  font-size: larger;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .img-container{
