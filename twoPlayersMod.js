@@ -26,6 +26,7 @@ export function cellsDisplay(modNam,obj){
   moves=0;
   spareModName=modNam;
   spareObj=obj;
+  switchingKey=disPerson1;
  console.log(obj.innerHTML);
   const modValue1=obj.dataset.mod;
   let presentGameMode='';
@@ -77,14 +78,38 @@ const hig2=findValue('player-2');
       }else{
         if(htmlValue!=disPerson1 && htmlValue!==disPerson2 && gameEnd==false){
           console.log('cellvalue:',cellValue);
-          moves+=1;
+          
           console.log(moves);
 
-          ////play game method////
+          ////game played here////
           if(gameEnd==false && presentGameMode=='0'){
-            playGame(cellValue,obj);
+              if(switchingKey==disPerson1 && gameEnd==false){
+              sound.play()
+              item.innerHTML=disPerson1;
+                
+              moves+=1;
+
+              checkGameStatus(switchingKey); 
+              themeChanger(disPerson1);  
+              switchingKey=disPerson2;
+              
+  
+              
+            }else{
+              if(switchingKey==disPerson2 && gameEnd==false){
+                sound.play();
+                item.innerHTML=disPerson2;
+                moves+=1;
+                checkGameStatus(switchingKey);
+                themeChanger(disPerson2);
+                switchingKey=disPerson1;
+                
+
+                
+              }
+            }
           }
-          
+          /////ended here/////
           
           if(switchingKey==disPerson1 && gameEnd==false ){
              hig2.classList.remove("highlight-2");
@@ -125,46 +150,6 @@ const hig2=findValue('player-2');
 }
 
 
-
-
-function playGame(cellval,gameObj){
-
-  const GameMode=gameObj.dataset.mod;
-  
-  if(GameMode=='0'){
-
-          if(switchingKey=='' && gameEnd==false){
-          switchingKey=disPerson1;
-          }
-          if(switchingKey==disPerson1 && gameEnd==false){
-            sound.play()
-            sendSwitchingKeyResponse(cellval,switchingKey);
-
-            
-
-            checkGameStatus(switchingKey); 
-            themeChanger(disPerson1);  
-            switchingKey=disPerson2;
-            
-            
-            
-          }else{
-            if(switchingKey==disPerson2 && gameEnd==false){
-              sound.play();
-              sendSwitchingKeyResponse(cellval,switchingKey);
-              checkGameStatus(switchingKey);
-              themeChanger(disPerson2);
-              switchingKey=disPerson1;
-              
-
-              
-            }
-          }
-
-  } 
-   
-
-}
 
 ///CHECKING GAME STATUS AND FINALISE WINNER/////
 export function checkGameStatus(recentMove){
@@ -279,7 +264,7 @@ export function checkGameStatus(recentMove){
 
  function gameOver(recentMove,index){
   gameEnd=true;
-  crossLine(index);
+ index!=''?crossLine(index):console.log('tie');
   setTimeout(()=>{
     addList('msg','msg-cover');
   
